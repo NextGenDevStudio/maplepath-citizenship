@@ -3,193 +3,204 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#b51f32">
-<title>MaplePath | Canadian Citizenship Prep</title>
+<title>MaplePath - Citizenship Exam</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f7fa;color:#202b3c}
-header{background:#b51f32;color:white;padding:22px 20px;border-radius:0 0 24px 24px}
-.top{display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:25px;font-weight:800}
-select{padding:9px;border:0;border-radius:9px}
-.hero{padding:24px 0 15px}
-.hero h1{font-size:27px;margin:5px 0 10px}
-.hero p{line-height:1.5;color:#ffe9ec}
-.container{padding:20px;max-width:650px;margin:auto}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:12px 0 24px}
-.stat,.card{background:white;padding:17px;border-radius:15px;box-shadow:0 3px 14px #1522380b}
-.stat strong{font-size:23px;color:#b51f32}
-.stat small{display:block;color:#687386;margin-top:5px}
-h2{font-size:19px}
-.card{margin-bottom:13px}
-.card h3{margin:0 0 7px}
-.card p{color:#687386;font-size:14px;line-height:1.5}
-button{background:#b51f32;color:white;border:0;padding:13px 17px;border-radius:10px;font-weight:bold;cursor:pointer;width:100%;margin-top:8px}
-button.secondary{background:#f5e8ea;color:#a51c2e}
-#quiz{display:none}
-.option{display:block;width:100%;text-align:left;background:#f1f3f7;color:#263244;margin:10px 0}
-.option:focus{outline:2px solid #b51f32}
-#feedback{font-weight:bold;margin-top:12px}
-footer{text-align:center;padding:25px;color:#7b8492;font-size:12px}
+body{margin:0;background:#f4f6fa;color:#263244;font-family:Arial,sans-serif}
+header{background:#b51f32;color:white;padding:24px;border-radius:0 0 25px 25px}
+.top,.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.logo{font-size:25px;font-weight:bold}
+select{padding:11px;border:0;border-radius:9px}
+main{max-width:650px;margin:auto;padding:18px}
+.card{background:white;padding:20px;border-radius:17px;margin:15px 0;box-shadow:0 3px 14px #0000000a}
+h1{font-size:25px}h2{font-size:21px}
+p{line-height:1.5;color:#687386}
+button{border:0;border-radius:10px;padding:14px;background:#b51f32;color:white;font-weight:bold;font-size:15px;cursor:pointer}
+button:disabled{opacity:.4}
+.primary{width:100%;margin-top:12px}
+.secondary{background:#f4e8ea;color:#a51c2e}
+.option{display:block;width:100%;text-align:left;margin:10px 0;background:#f1f3f7;color:#263244}
+.option.selected{background:#f7dfe3;border:2px solid #b51f32}
+.timer{font-size:22px;font-weight:bold;color:#b51f32}
+.progress{height:8px;background:#e7eaf0;border-radius:20px;margin:15px 0}
+.bar{height:8px;background:#b51f32;border-radius:20px;width:0}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:18px 0}
+.num{padding:11px 4px;background:#edf0f5;color:#333}
+.num.done{background:#f4d8dd;color:#a51c2e}
+.num.current{outline:2px solid #b51f32}
+.hidden{display:none}
+.good{color:#16834b}.bad{color:#bd2637}
+footer{text-align:center;color:#88909c;padding:25px;font-size:12px}
 </style>
 </head>
 <body>
-
 <header>
 <div class="top">
 <div class="logo">🍁 MaplePath</div>
-<select id="language" onchange="changeLanguage()">
+<select id="language" onchange="changeLang()">
 <option value="en">English</option>
 <option value="fr">Français</option>
 </select>
 </div>
-<div class="hero">
-<h1 id="welcome">Your Journey to Canadian Citizenship</h1>
-<p id="subtitle">Learn, practise and prepare with confidence.</p>
-</div>
+<h1 id="heading">Canadian Citizenship Mock Exam</h1>
+<p id="sub" style="color:#ffe5e8">Practice and prepare with confidence.</p>
 </header>
-
-<main class="container">
+<main>
 <section id="home">
-<div class="stats">
-<div class="stat"><strong>20</strong><small id="s1">Official exam questions</small></div>
-<div class="stat"><strong>45 min</strong><small id="s2">Exam time limit</small></div>
-<div class="stat"><strong>75%</strong><small id="s3">Passing score</small></div>
-<div class="stat"><strong>2</strong><small id="s4">Available languages</small></div>
-</div>
-
-<h2 id="start">Start Learning</h2>
-
 <div class="card">
-<h3 id="practiceTitle">📚 Practice Questions</h3>
-<p id="practiceDesc">Test your knowledge with practice questions.</p>
-<button onclick="startQuiz()" id="practiceBtn">Start Practice</button>
+<h2 id="welcome">Welcome to your practice exam</h2>
+<p id="intro">20 questions. 45 minutes. Choose the best answer.</p>
+<div class="row"><span>📝 20 Questions</span><span>⏱️ 45 Minutes</span></div>
+<div class="row"><span>🎯 15 Correct to Pass</span><span>🌎 Bilingual</span></div>
+<button class="primary" onclick="startExam()" id="start">Start Mock Exam</button>
 </div>
-
 <div class="card">
-<h3 id="studyTitle">🍁 Study by Topic</h3>
-<p id="studyDesc">Explore Canadian history, government, geography and rights.</p>
-<button class="secondary" onclick="alert(document.getElementById('topicMessage').innerText)" id="studyBtn">Explore Topics</button>
-<p id="topicMessage" style="display:none">Study topics: History, Government, Geography, Rights and Responsibilities.</p>
-</div>
-
-<div class="card">
-<h3 id="examTitle">⏱️ Mock Exam</h3>
-<p id="examDesc">Prepare for the official citizenship test format.</p>
-<button class="secondary" onclick="startQuiz()" id="examBtn">Try Mock Exam</button>
+<h2 id="guide">Before you begin</h2>
+<p id="rules">Choose one answer for each question. You can change answers before submitting.</p>
 </div>
 </section>
-
-<section id="quiz">
-<h2 id="quizHeading">Practice Quiz</h2>
-<p id="questionCount"></p>
-<h3 id="question"></h3>
+<section id="exam" class="hidden">
+<div class="card">
+<div class="row"><strong id="examlabel">Mock Exam</strong><span class="timer" id="timer">45:00</span></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="row"><span id="counter"></span><span id="answered"></span></div>
+<h2 id="question"></h2>
 <div id="options"></div>
-<p id="feedback"></p>
-<button id="nextBtn" onclick="nextQuestion()">Next Question</button>
-<button class="secondary" onclick="goHome()" id="backBtn">Back to Home</button>
+<div class="row">
+<button class="secondary" onclick="move(-1)" id="prev">Previous</button>
+<button onclick="move(1)" id="next">Next</button>
+</div>
+</div>
+<div class="card">
+<strong id="jump">Jump to question</strong>
+<div class="grid" id="numbers"></div>
+<button class="primary" onclick="submitExam()" id="submit">Submit Exam</button>
+</div>
+</section>
+<section id="result" class="hidden">
+<div class="card">
+<h2 id="resultTitle">Exam Result</h2>
+<h1 id="score" style="color:#b51f32"></h1>
+<h2 id="status"></h2>
+<p id="resultText"></p>
+<button class="primary" onclick="showReview()" id="review">Review Answers</button>
+<button class="primary secondary" onclick="location.reload()" id="again">Try Again</button>
+</div>
+<div id="reviewArea"></div>
 </section>
 </main>
-
-<footer>MaplePath · Learn with confidence<br>
-Independent study tool. Not affiliated with the Government of Canada.
-</footer>
-
+<footer>MaplePath · Independent study tool. Not affiliated with the Government of Canada.</footer>
 <script>
-let lang="en",current=0,score=0;
-
-const questions={
-en:[
-{q:"What is the capital city of Canada?",a:["Toronto","Ottawa","Vancouver","Montreal"],correct:1,why:"Ottawa is the capital city of Canada."},
-{q:"What are the two official languages of Canada?",a:["English and French","English and Spanish","French and German","English and Italian"],correct:0,why:"Canada has two official languages: English and French."},
-{q:"What is the national anthem of Canada called?",a:["God Save the King","O Canada","Maple Leaf Forever","Canada Strong"],correct:1,why:"The national anthem is called O Canada."},
-{q:"What is the capital of Ontario?",a:["Ottawa","Toronto","Kingston","Hamilton"],correct:1,why:"Toronto is the capital of Ontario."},
-{q:"What does the Canadian flag feature?",a:["A beaver","A maple leaf","A polar bear","A mountain"],correct:1,why:"The Canadian flag features a red maple leaf."}
-],
-fr:[
-{q:"Quelle est la capitale du Canada ?",a:["Toronto","Ottawa","Vancouver","Montréal"],correct:1,why:"Ottawa est la capitale du Canada."},
-{q:"Quelles sont les deux langues officielles du Canada ?",a:["Anglais et français","Anglais et espagnol","Français et allemand","Anglais et italien"],correct:0,why:"Le Canada a deux langues officielles : l'anglais et le français."},
-{q:"Comment s'appelle l'hymne national du Canada ?",a:["God Save the King","Ô Canada","Maple Leaf Forever","Canada Strong"],correct:1,why:"L'hymne national s'appelle Ô Canada."},
-{q:"Quelle est la capitale de l'Ontario ?",a:["Ottawa","Toronto","Kingston","Hamilton"],correct:1,why:"Toronto est la capitale de l'Ontario."},
-{q:"Que représente le drapeau canadien ?",a:["Un castor","Une feuille d'érable","Un ours polaire","Une montagne"],correct:1,why:"Le drapeau canadien représente une feuille d'érable."}
-]};
-
-function changeLanguage(){
-lang=document.getElementById("language").value;
-let fr=lang==="fr";
-document.documentElement.lang=lang;
-const t={
-welcome:["Your Journey to Canadian Citizenship","Votre parcours vers la citoyenneté canadienne"],
-subtitle:["Learn, practise and prepare with confidence.","Apprenez, pratiquez et préparez-vous avec confiance."],
-s1:["Official exam questions","Questions de l'examen officiel"],
-s2:["Exam time limit","Durée de l'examen"],
-s3:["Passing score","Note de réussite"],
-s4:["Available languages","Langues disponibles"],
-start:["Start Learning","Commencer à apprendre"],
-practiceTitle:["📚 Practice Questions","📚 Questions pratiques"],
-practiceDesc:["Test your knowledge with practice questions.","Testez vos connaissances avec des questions pratiques."],
-practiceBtn:["Start Practice","Commencer"],
-studyTitle:["🍁 Study by Topic","🍁 Étudier par sujet"],
-studyDesc:["Explore Canadian history, government, geography and rights.","Découvrez l'histoire, le gouvernement, la géographie et les droits."],
-studyBtn:["Explore Topics","Explorer les sujets"],
-examTitle:["⏱️ Mock Exam","⏱️ Examen blanc"],
-examDesc:["Prepare for the official citizenship test format.","Préparez-vous au format officiel de l'examen."],
-examBtn:["Try Mock Exam","Essayer"],
-quizHeading:["Practice Quiz","Quiz pratique"],
-backBtn:["Back to Home","Retour à l'accueil"],
-nextBtn:["Next Question","Question suivante"]
+const Q=[
+["What is the capital of Canada?",["Toronto","Ottawa","Vancouver","Montreal"],1,"Ottawa is the capital.","Quelle est la capitale du Canada ?",["Toronto","Ottawa","Vancouver","Montréal"],"Ottawa est la capitale."],
+["What are Canada's two official languages?",["English and French","English and Spanish","French and German","English and Italian"],0,"English and French are the official languages.","Quelles sont les deux langues officielles du Canada ?",["Anglais et français","Anglais et espagnol","Français et allemand","Anglais et italien"],"L'anglais et le français sont les langues officielles."],
+["In which year did Confederation take place?",["1776","1867","1905","1949"],1,"Confederation took place in 1867.","En quelle année la Confédération a-t-elle eu lieu ?",["1776","1867","1905","1949"],"La Confédération a eu lieu en 1867."],
+["Who is Canada's Head of State?",["The Prime Minister","The Premier","The King","The Speaker"],2,"The King is Canada's Head of State.","Qui est le chef d'État du Canada ?",["Le premier ministre","Le premier ministre provincial","Le roi","Le président"],"Le roi est le chef d'État du Canada."],
+["Who represents the King federally in Canada?",["The Governor General","The Prime Minister","The Chief Justice","The Mayor"],0,"The Governor General represents the King.","Qui représente le roi au niveau fédéral ?",["Le gouverneur général","Le premier ministre","Le juge en chef","Le maire"],"Le gouverneur général représente le roi."],
+["How many provinces does Canada have?",["8","10","12","13"],1,"Canada has 10 provinces.","Combien de provinces le Canada compte-t-il ?",["8","10","12","13"],"Le Canada compte 10 provinces."],
+["How many territories does Canada have?",["2","3","4","5"],1,"Canada has three territories.","Combien de territoires le Canada compte-t-il ?",["2","3","4","5"],"Le Canada compte trois territoires."],
+["What is Canada's national anthem?",["God Save the King","O Canada","Maple Leaf Forever","Canada Strong"],1,"O Canada is the national anthem.","Quel est l'hymne national du Canada ?",["God Save the King","Ô Canada","Maple Leaf Forever","Canada Strong"],"Ô Canada est l'hymne national."],
+["What symbol is on Canada's flag?",["A beaver","A maple leaf","A crown","A mountain"],1,"The Canadian flag features a maple leaf.","Quel symbole figure sur le drapeau canadien ?",["Un castor","Une feuille d'érable","Une couronne","Une montagne"],"Le drapeau présente une feuille d'érable."],
+["At what age can citizens vote federally?",["16","17","18","21"],2,"Citizens can vote federally at age 18.","À quel âge peut-on voter aux élections fédérales ?",["16 ans","17 ans","18 ans","21 ans"],"On peut voter à 18 ans."],
+["What are Canada's three levels of government?",["Federal, provincial and municipal","Royal, local and national","Public, private and federal","City, county and royal"],0,"Federal, provincial/territorial and municipal.","Quels sont les trois ordres de gouvernement ?",["Fédéral, provincial et municipal","Royal, local et national","Public, privé et fédéral","Ville, comté et royal"],"Fédéral, provincial/territorial et municipal."],
+["Which Constitution Act was passed in 1982?",["Charter Act","Constitution Act, 1982","British Act","Federal Act"],1,"The Constitution Act, 1982 patriated the Constitution.","Quelle loi constitutionnelle a été adoptée en 1982 ?",["Loi sur la Charte","Loi constitutionnelle de 1982","Loi britannique","Loi fédérale"],"La Loi constitutionnelle de 1982 a rapatrié la Constitution."],
+["Which ocean borders Canada's west coast?",["Atlantic","Arctic","Pacific","Indian"],2,"The Pacific Ocean borders the west coast.","Quel océan borde la côte ouest du Canada ?",["Atlantique","Arctique","Pacifique","Indien"],"L'océan Pacifique borde la côte ouest."],
+["Which ocean borders Canada's east coast?",["Pacific","Atlantic","Indian","Southern"],1,"The Atlantic Ocean borders the east coast.","Quel océan borde la côte est du Canada ?",["Pacifique","Atlantique","Indien","Austral"],"L'océan Atlantique borde la côte est."],
+["Which three Indigenous peoples are recognized in the Constitution?",["First Nations, Inuit and Métis","Inuit, Vikings and Métis","First Nations, Acadians and Inuit","Métis, British and French"],0,"First Nations, Inuit and Métis.","Quels peuples autochtones sont reconnus dans la Constitution ?",["Premières Nations, Inuit et Métis","Inuit, Vikings et Métis","Premières Nations, Acadiens et Inuit","Métis, Britanniques et Français"],"Premières Nations, Inuit et Métis."],
+["What is the capital of British Columbia?",["Vancouver","Victoria","Kelowna","Surrey"],1,"Victoria is the capital.","Quelle est la capitale de la Colombie-Britannique ?",["Vancouver","Victoria","Kelowna","Surrey"],"Victoria est la capitale."],
+["What is the capital of Alberta?",["Calgary","Edmonton","Banff","Red Deer"],1,"Edmonton is the capital.","Quelle est la capitale de l'Alberta ?",["Calgary","Edmonton","Banff","Red Deer"],"Edmonton est la capitale."],
+["When is Remembrance Day observed?",["July 1","October 31","November 11","December 25"],2,"Remembrance Day is November 11.","Quand observe-t-on le jour du Souvenir ?",["1er juillet","31 octobre","11 novembre","25 décembre"],"Le jour du Souvenir est le 11 novembre."],
+["What is a responsibility of Canadian citizens?",["Ignoring laws","Obeying the law","Avoiding jury duty","Refusing to vote"],1,"Obeying the law is a responsibility.","Quelle est une responsabilité des citoyens canadiens ?",["Ignorer les lois","Respecter la loi","Éviter le service de juré","Refuser de voter"],"Respecter la loi est une responsabilité."],
+["What is Canada's national police service commonly called?",["RCMP","FBI","CIA","NATO"],0,"The RCMP is Canada's national police service.","Quel est le nom courant du service de police national ?",["GRC","FBI","CIA","OTAN"],"La GRC est le service de police national."]
+];
+const W={
+en:{heading:"Canadian Citizenship Mock Exam",sub:"Practice and prepare with confidence.",welcome:"Welcome to your practice exam",intro:"20 questions. 45 minutes. Choose the best answer.",guide:"Before you begin",rules:"Choose one answer for each question. You can change answers before submitting.",start:"Start Mock Exam",examlabel:"Mock Exam",prev:"Previous",next:"Next",jump:"Jump to question",submit:"Submit Exam",answered:"answered",question:"Question",of:"of",resultTitle:"Exam Result",pass:"Congratulations! You passed.",fail:"Keep practising. You did not pass this time.",review:"Review Answers",again:"Try Again",correct:"Correct",wrong:"Incorrect",your:"Your answer",right:"Correct answer",score:"correct answers",confirm:"Submit your exam now?",unanswered:"Unanswered"},
+fr:{heading:"Examen blanc de citoyenneté canadienne",sub:"Pratiquez et préparez-vous avec confiance.",welcome:"Bienvenue à votre examen pratique",intro:"20 questions. 45 minutes. Choisissez la meilleure réponse.",guide:"Avant de commencer",rules:"Choisissez une réponse pour chaque question. Vous pouvez modifier vos réponses avant de soumettre.",start:"Commencer l'examen",examlabel:"Examen blanc",prev:"Précédent",next:"Suivant",jump:"Aller à la question",submit:"Soumettre l'examen",answered:"répondues",question:"Question",of:"sur",resultTitle:"Résultat de l'examen",pass:"Félicitations ! Vous avez réussi.",fail:"Continuez à pratiquer. Vous n'avez pas réussi.",review:"Voir les réponses",again:"Réessayer",correct:"Correct",wrong:"Incorrect",your:"Votre réponse",right:"Bonne réponse",score:"bonnes réponses",confirm:"Soumettre votre examen maintenant?",unanswered:"Sans réponse"}
 };
-for(let id in t)document.getElementById(id).innerText=t[id][fr?1:0];
-document.getElementById("topicMessage").innerText=fr?"Sujets : Histoire, Gouvernement, Géographie, Droits et responsabilités.":"Study topics: History, Government, Geography, Rights and Responsibilities.";
+let lang="en",index=0,answers=[],remaining=2700,interval=null,finished=false;
+const t=k=>W[lang][k],fr=()=>lang==="fr";
+function changeLang(){
+lang=document.getElementById("language").value;
+document.documentElement.lang=lang;
+["heading","sub","welcome","intro","guide","rules","start"].forEach(id=>document.getElementById(id).innerText=t(id));
+if(!document.getElementById("exam").classList.contains("hidden"))render();
 }
-
-function startQuiz(){
-current=0;score=0;
-document.getElementById("home").style.display="none";
-document.getElementById("quiz").style.display="block";
-showQuestion();
+function startExam(){
+answers=Array(20).fill(null);index=0;remaining=2700;finished=false;
+document.getElementById("home").classList.add("hidden");
+document.getElementById("result").classList.add("hidden");
+document.getElementById("exam").classList.remove("hidden");
+["examlabel","prev","next","jump","submit"].forEach(id=>document.getElementById(id).innerText=t(id));
+render();updateTimer();clearInterval(interval);
+interval=setInterval(()=>{remaining--;updateTimer();if(remaining<=0){clearInterval(interval);finish();}},1000);
 }
-function showQuestion(){
-let list=questions[lang];
-document.getElementById("questionCount").innerText=(lang==="fr"?"Question ":"Question ")+(current+1)+" / "+list.length;
-document.getElementById("question").innerText=list[current].q;
-document.getElementById("feedback").innerText="";
-document.getElementById("nextBtn").style.display="none";
-let area=document.getElementById("options");
-area.innerHTML="";
-list[current].a.forEach((answer,i)=>{
+function updateTimer(){
+document.getElementById("timer").innerText=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0");
+document.getElementById("timer").style.color=remaining<300?"#d00000":"#b51f32";
+}
+function render(){
+let q=Q[index];
+document.getElementById("counter").innerText=t("question")+" "+(index+1)+" "+t("of")+" 20";
+document.getElementById("answered").innerText=answers.filter(x=>x!==null).length+" "+t("answered");
+document.getElementById("question").innerText=q[fr()?4:0];
+let area=document.getElementById("options");area.innerHTML="";
+q[fr()?5:1].forEach((a,i)=>{
 let b=document.createElement("button");
-b.className="option";b.innerText=answer;
-b.onclick=()=>checkAnswer(i);
+b.className="option"+(answers[index]===i?" selected":"");
+b.innerText=String.fromCharCode(65+i)+". "+a;
+b.onclick=()=>{answers[index]=i;render()};
 area.appendChild(b);
 });
+document.getElementById("bar").style.width=(answers.filter(x=>x!==null).length/20*100)+"%";
+let nums=document.getElementById("numbers");nums.innerHTML="";
+for(let i=0;i<20;i++){
+let b=document.createElement("button");
+b.className="num"+(answers[i]!==null?" done":"")+(i===index?" current":"");
+b.innerText=i+1;b.onclick=()=>{index=i;render()};nums.appendChild(b);
 }
-function checkAnswer(i){
-let item=questions[lang][current];
-let buttons=document.querySelectorAll(".option");
-buttons.forEach(b=>b.disabled=true);
-let correct=i===item.correct;
-if(correct)score++;
-document.getElementById("feedback").innerText=
-(correct?"✓ ":"✗ ")+item.why;
-document.getElementById("nextBtn").style.display="block";
+document.getElementById("prev").disabled=index===0;
+document.getElementById("next").innerText=index===19?(fr()?"Terminer":"Finish"):t("next");
 }
-function nextQuestion(){
-current++;
-if(current<questions[lang].length){showQuestion();return;}
-document.getElementById("question").innerText=
-(lang==="fr"?"Quiz terminé ! Votre résultat : ":"Quiz complete! Your score: ")+score+"/5";
-document.getElementById("questionCount").innerText="";
-document.getElementById("options").innerHTML="";
-document.getElementById("feedback").innerText="";
-document.getElementById("nextBtn").style.display="none";
+function move(n){
+if(index===19&&n===1){submitExam();return;}
+index=Math.max(0,Math.min(19,index+n));render();
 }
-function goHome(){
-document.getElementById("quiz").style.display="none";
-document.getElementById("home").style.display="block";
+function submitExam(){
+let missing=answers.filter(x=>x===null).length;
+if(missing>0){
+if(!confirm(fr()?"Il reste "+missing+" questions sans réponse. Soumettre quand même ?":"There are "+missing+" unanswered questions. Submit anyway?"))return;
+}else if(!confirm(t("confirm")))return;
+finish();
+}
+function finish(){
+if(finished)return;finished=true;clearInterval(interval);
+let score=Q.reduce((sum,q,i)=>sum+(answers[i]===q[2]?1:0),0);
+document.getElementById("exam").classList.add("hidden");
+document.getElementById("result").classList.remove("hidden");
+document.getElementById("resultTitle").innerText=t("resultTitle");
+document.getElementById("score").innerText=score+"/20";
+document.getElementById("status").innerText=score>=15?t("pass"):t("fail");
+document.getElementById("status").className=score>=15?"good":"bad";
+document.getElementById("resultText").innerText=score+" "+t("score")+" · "+Math.round(score/20*100)+"%";
+document.getElementById("review").innerText=t("review");
+document.getElementById("again").innerText=t("again");
+}
+function showReview(){
+let area=document.getElementById("reviewArea");area.innerHTML="";
+Q.forEach((q,i)=>{
+let ok=answers[i]===q[2],d=document.createElement("div");
+d.className="card";
+let title=document.createElement("h3");title.innerText=(i+1)+". "+q[fr()?4:0];d.appendChild(title);
+let status=document.createElement("p");status.className=ok?"good":"bad";status.innerText=ok?t("correct"):t("wrong");d.appendChild(status);
+let your=document.createElement("p");your.innerText=t("your")+": "+(answers[i]===null?t("unanswered"):q[fr()?5:1][answers[i]]);d.appendChild(your);
+let right=document.createElement("p");right.innerText=t("right")+": "+q[fr()?5:1][q[2]];d.appendChild(right);
+let why=document.createElement("p");why.innerText=q[fr()?6:3];d.appendChild(why);
+area.appendChild(d);
+});
+area.scrollIntoView({behavior:"smooth"});
 }
 </script>
 </body>
-  </html>
-  
+</html>
